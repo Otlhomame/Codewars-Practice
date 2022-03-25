@@ -1,0 +1,38 @@
+// A simple program that shows how functions can be used together to produce random 3 choice options. In this use case, its for the rock, paper and scissors game
+
+//Arrays, looks and conditionals in functions
+
+// First function that returns rock, paper, or scissors as randomly as possible. this is goiing to be the brain of the bot as our opponent in the game.
+
+function rockPaperScissors() {
+  let random = Math.random()
+  if (random < 0.33) {
+    return 'rock'
+  }else if (random < 0.66) {
+    return 'paper'
+  }else {
+    return 'Scissors'
+  }
+}
+
+//Second function that takes our 3 choices as a user/player (rock, paper, or scissors) and check if we won a game of rock paper scissors against a bot using the above function
+
+function checkWin(playerChoice) {
+  let botChoice = rockPaperScissors() //the bots brain which randomly selects rock, paper or scissors
+  if( (playerChoice === 'rock' && botChoice === 'Scissors' ) || (playerChoice === 'paper' && botChoice === 'rock') || (playerChoice === 'Scissors' && botChoice === 'paper') ) {
+    console.log('You Win');
+  }else if (playerChoice === botChoice){
+    console.log ('You Tied')
+  }else {
+    console.log('You lose');
+  }
+}
+checkWin('rock'); //checking if the human won against the bot if he keeps playing choice of rock.
+
+//Third function that takes an array of players choices in the game (rock, paper or scissors), places it in the previous function and then it returns whether or not the user won against the bot. 
+
+function playGameXTimes(arr) {
+  arr.forEach( choice => checkWin(choice))
+}
+
+playGameXTimes (['rock' , 'paper', 'Scissors']); //The game is played 3 times since there are 3 choices
