@@ -1,4 +1,4 @@
 # A compilation of daily Javascript practice. 
 
-### Codewars-Practice 8kyu
+### Codewars Problem Solving
 ### WesBos Javascript 30 day challenge
