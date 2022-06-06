@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Type Ahead 👀</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <form class="search-form">
+    <input type="text" class="search" placeholder="City or State">
+    <ul class="suggestions">
+      <li>Filter for a city</li>
+      <li>or a state</li>
+    </ul>
+  </form>
+<script>
+const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+
+const cities = []; /*Creating an empty array to put our data in*/
+fetch(endpoint) /*Collecting the data from the endpoint here*/
+  .then(blob => blob.json()) /*Convert the data into an array format for the browser to categorise as such*/
+  .then(data => cities.push(...data)); /*Transfer the retrieved data into the empty cities array above using spread method to list all cities*/
+
+function findMatches(wordToMatch, cities) { /*Create the filter function to pull up a city based on word typed into the page*/
+  return cities.filter(place => { /*Create a sub array from parent city array*/
+    // here we need to figure out if the city or state matches what was searched
+    const regex = new RegExp(wordToMatch, 'gi'); /*REgular expression (regex) which we'll use to wordMatch whatever we input. 'gi' refers to global which means its going to look through the entire string for what the user entered and i is for case insensitive regardless of what user inputs*/
+    return place.city.match(regex) || place.state.match(regex) /*A check of whther any of the city or state variables within the dataset contains whatever the user has entered in the regular expression*/
+  });
+}
+
+function numberWithCommas(x) { /*Simply converts numbers to have commas in them*/
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function displayMatches() { /*Dynamically display word matches as user types into the page*/
+  const matchArray = findMatches(this.value, cities);
+  const html = matchArray.map(place => {
+    const regex = new RegExp(this.value, 'gi');
+    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`); /*Finds the word the person had searched for in the regex above it, replaces it with the span of the value the person had entered and stores it in the cityNme onst variable*/
+    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`); /*A highlighted version of the state Name*/
+    return `
+      <li>
+        <span class="name">${cityName}, ${stateName}</span>
+        <span class="population">${numberWithCommas(place.population)}</span>
+      </li>
+    `;
+  }).join(''); /*Turning the array you've retrieved from typing into one big string instead of an array format which is much more friendly to the eyes*/
+  suggestions.innerHTML = html;
+}
+
+const searchInput = document.querySelector('.search'); /*Creatre a bucket of content from which the display matches function will get its dynamic updates as user changes their input */
+const suggestions = document.querySelector('.suggestions'); /*The actual trigger for the dynamic change in display of data match as user inputs and chnges their search string for a city or state*/
+
+searchInput.addEventListener('change', displayMatches);
+searchInput.addEventListener('keyup', displayMatches);
+
+</script>
+  </body>
+</html>
