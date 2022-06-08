@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log();;
+
+    // Interpolated
+    console.log('Hello I am a %s string', '💩'); //replaces that %s with the poo icon which is the second argument  
+
+    // Styled
+    console.log('%c I am some great text', 'font-size:50px; background:red;text-shadow: 10px 10px 0 blue'); //Styling text in line using %c
+
+    // warning!
+    console.warn('Oh No');
+
+    // Error :|
+    console.error('Oops!');
+
+    // Info
+    console.info('Crocodiles eat 3-4 people every year');
+
+    // Testing
+    consrt p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is wrong!');
+
+    // clearing
+    console.clear();
+
+    // Viewing DOM Elements
+    console.log(p);
+    console.dir(p); //View all other properties and methods about the paragraph besides the paragraph content itself
+    console.clear();
+
+    // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} years old`);
+      console.groupEnd(`${dog.name}`);
+    })
+
+
+    // counting
+    console.log('Wes');
+    console.log('Wes');
+    console.log('Wes');
+
+    // timing
+
+    console.time('fetching data'); //Time how long it takes to complete a process
+    fetch('hhtp://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.time('fetching data');
+        console.log(data);
+      })
+
+    console.table(dogs);
+
+  </script>
+</body>
+</html>
