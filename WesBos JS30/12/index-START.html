@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+  const pressed = []; //The array to which  we are going to save our key strokes
+  const secretCode = 'wesbos'; 
+
+  window.addEventListener('keyup', (e) => { //The idea is to create a function that recognises when a user punches a certain sequence of keys
+    console.log(e.key);
+    pressed.push(e.key);
+    pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length); //Making sure the array is sliced down/limited to what exactly we are looking for. In this case its 6 letters array size limit according to secretCode    
+    if (pressed.join('').includes(secretCode)) { //Checking if the created array has the secretCode combination
+      console.log('Ding Ding!');
+      cornify_add(); //add random visual illustrations on page to indicate the presence of secret code key sequence
+    }
+    console.log(pressed);
+  });
+</script>
+</body>
+</html>
