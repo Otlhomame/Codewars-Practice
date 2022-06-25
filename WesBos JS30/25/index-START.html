@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after { 
+    box-sizing: inherit; 
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e) { //a function to log the clicked div element
+    console.console.log(this.classList.value);
+    //e.stopPropagation(); //Another instruction to stop the function from bubbling the event up to the div elements which contain the clicked element
+  }
+  //When someone clicks the div, you log it. If capture is set to true, it makes sure it prevents bubbling up such that the function only applies to the div element which is clicked as opposed to applying the function to div elements within which it is nested
+  divs.forEach(div => div.addEventListener('click', logText, {
+    capture: false,
+    once: true //Listen to a click once and then unbind itself from future clicks. Essentially it ensures the button is only clicked once on the page
+  })); 
+
+  button.addEventListener('click', () => {
+    console.log('Click!!!');
+  }, {
+    once: true //Examples of where to use once:true linmits include the store chaeckout twhere you want someone to click on the checkout button once to avoid duplicate purchases for instance.
+  })
+    
+</script>
+</body>
+</html>
