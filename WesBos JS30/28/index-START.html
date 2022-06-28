@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrapper">
+    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop controls></video>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+<script>
+  const speed = document.querySelector('.speed'); //The white bar background
+  const bar = speed.querySelector('.speed-bar'); //The blue bar which will be used to control the speed
+  const video = document.querySelector('.flex'); //THe actual video to be controlled
+
+  function handleMove (e) {
+    const y = e.pageY - this.offsetTop; //Finding the y-axis numbers coresponding to how far along the speed bar we are where we use offsetTop to accommodate any page padding or margin from the page. WE arent going to assume the bar is always at the top of the page
+    const percent = y / this.offsetHeight; //Converting those numbers into floats ranging between 0 and 1 which will represent 0% - 100%
+    const min = 0.4; //Setting the lowest playback speed
+    const max = 4; //Setting the highest playback speed
+    const height = Math.round(percent * 100) + '%'; //Deriving the actual percentage format we need for the speedbar
+    const playbackRate = percent * (max - min) + min; //MAking the Max playback speed equal to 4 and min speed equal to 0.4
+    bar.style.height = height; //Making the blue visual filling effect increase of decrease according to how far along the speedbar we are. This is what the user will observe to interact with the speed controller
+    bar.textContent = playbackRate.toFixed(2) + 'x'; //Adding text to the blue bar round to 2 deciml places where it plays from 0.4X to 4X speed
+    video.playbackRate = playbackRate; //Updating the video the playback speed accodring to how far long the mouse has moved
+  }
+
+  speed.addEventListener('mousemove', handleMove); //Checking if the mouse is hovering over the speed bar
+
+</script>
+</body>
+</html>
