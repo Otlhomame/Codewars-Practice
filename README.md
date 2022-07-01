@@ -1,4 +1,4 @@
-# A compilation of daily Javascript practice. 
+# Daily Javascript Practice 
 
 ### Codewars Problem Solving
 ### WesBos Javascript 30 day challenge
