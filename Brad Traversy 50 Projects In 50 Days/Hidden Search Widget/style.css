@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(90deg, #7d5fff, #7158e2);
+  font-family: 'Roboto', sans-serif;
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.search {
+  position: relative; /*Allwos us to potition things inside*/
+  height: 50px;
+}
+
+.search .input {
+  background-color: #fff;
+  border: 0;
+  font-size: 18px;
+  padding: 15px;
+  height: 50px;
+  width: 50px;
+  transition: width 0.3s ease; /*Making the animation for the button*/
+}
+
+.btn {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  transition: transform 0.3s ease; /*Moving the button over when the search intput expands*/
+}
+/*Removing outlines from both the button and input components when they are in focus*/
+.btn:focus, .input:focus {
+  outline: none;
+}
+
+.search.active .input {
+  width: 200px; /*When the search component is active, change its width from 50 to 200px*/
+}
+
+.search.active .btn {
+  transform: translateX(198px); /*When the search is active, move the button 198px to the right along its X-axis*/
+}
